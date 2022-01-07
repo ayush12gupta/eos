@@ -375,7 +375,7 @@ PYBIND11_MODULE(eos, eos_module)
         [](const std::vector<Eigen::Vector3f>& vertices,
            const std::vector<std::array<int, 3>>& triangle_vertex_indices,
            const std::vector<Eigen::Vector3f>& face_normals) {
-            const std::vector<Eigen::Vector3f> face_normals = render::compute_face_normals(vertices, triangle_vertex_indices);
+            std::vector<Eigen::Vector3f> face_normals = render::compute_face_normals(vertices, triangle_vertex_indices);
             return render::compute_vertex_normals(vertices, triangle_vertex_indices, face_normals);
         },
         "Extracts the face normals from the given vertices and returns a texture map.",
