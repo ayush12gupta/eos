@@ -36,6 +36,7 @@
 #include "eos/pca/pca.hpp"
 #include "eos/render/texture_extraction.hpp"
 #include "eos/render/draw_utils.hpp"
+#include "eos/render/normals.hpp"
 
 #include "pybind11/pybind11.h"
 #include "pybind11/eigen.h"
@@ -359,6 +360,15 @@ PYBIND11_MODULE(eos, eos_module)
         },
         "Extracts the texture from the given image and returns a texture map.",
         py::arg("mesh"), py::arg("rendering_params"), py::arg("image"), py::arg("texturemap_resolution") = 512);
+
+    render_module.def(
+        "compute_face_normals",
+        [](const std::vector<Eigen::Vector3f>& vertices,
+           const std::vector<std::array<int, 3>>& triangle_vertex_indices) {
+            return render::compute_face_normals(vertices, triangle_vertex_indices);
+        },
+        "Extracts the face normals from the given vertices and returns a texture map.",
+        py::arg("vertices"), py::arg("triangle_vertex_indices"));
 
     render_module.def(
         "draw_wireframe",
